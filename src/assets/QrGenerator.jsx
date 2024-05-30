@@ -30,10 +30,16 @@ export const QrGenerator = () => {
 
     function downloadQR(){
 
-      const link = document.createElement('a');
-      link.href = Link;
-      link.download = `QRcode.png`; 
-      link.click();
+      fetch(img)
+      .then((response)=>response.blob())
+      .then((blob)=>{
+        const link =document.createElement("a")
+        link.href=URL.createObjectURL(blob)
+        link.download="QRcode.png"
+        document.body.appendChild(link)
+        link.click();
+        document.body.removeChild(link)
+      })
     }
 
   return (
